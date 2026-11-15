@@ -1,0 +1,112 @@
+# Clash Verge Rev 订阅扩展配置
+# 右键现有远程订阅 → 编辑扩展配置 → 粘贴本文并保存。
+# 使用订阅实时更新的节点，覆写策略组和分流规则。
+geodata-mode: true
+geo-auto-update: true
+geo-update-interval: 24
+geox-url:
+  geosite: https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
+  geoip: https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
+profile:
+  store-selected: true
+proxy-groups:
+  - name: 🚀 通用代理
+    type: select
+    proxies:
+      - 🇭🇰 香港 HK
+      - 🇯🇵 日本 JP
+      - 🇸🇬 新加坡 SG
+      - 🇺🇸 美国 US
+  - name: 🤖 AI
+    type: select
+    proxies:
+      - 🇺🇸 美国 US
+      - 🇯🇵 日本 JP
+      - 🇸🇬 新加坡 SG
+  - name: 📹 YouTube
+    type: select
+    proxies:
+      - 🚀 通用代理
+      - 🇭🇰 香港 HK
+      - 🇯🇵 日本 JP
+      - 🇸🇬 新加坡 SG
+      - 🇺🇸 美国 US
+  - name: 🍿 流媒体
+    type: select
+    proxies:
+      - 🚀 通用代理
+      - 🇭🇰 香港 HK
+      - 🇯🇵 日本 JP
+      - 🇸🇬 新加坡 SG
+      - 🇺🇸 美国 US
+  - name: 🎮 游戏
+    type: select
+    proxies:
+      - 🚀 通用代理
+      - DIRECT
+      - 🇭🇰 香港 HK
+      - 🇯🇵 日本 JP
+      - 🇸🇬 新加坡 SG
+      - 🇺🇸 美国 US
+  - name: 💬 社交
+    type: select
+    proxies:
+      - 🚀 通用代理
+      - 🇭🇰 香港 HK
+      - 🇯🇵 日本 JP
+      - 🇸🇬 新加坡 SG
+      - 🇺🇸 美国 US
+  - name: 🎬 EMBY
+    type: select
+    filter: (?i)EMBY
+    empty-fallback: REJECT
+    include-all: true
+    exclude-filter: 3x`(?i)^\s*(?:支持AI|剩余流量|距离下次重置|套餐到期|客服)
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - 🚀 通用代理
+      - DIRECT
+      - 🇭🇰 香港 HK
+      - 🇯🇵 日本 JP
+      - 🇸🇬 新加坡 SG
+      - 🇺🇸 美国 US
+  - name: 🇭🇰 香港 HK
+    type: select
+    filter: (?i)(?:🇭🇰|香港|Hong[ -]?Kong|(?:^|[^A-Z])HK(?:$|[^A-Z]))
+    exclude-filter: 3x`(?i)EMBY`(?i)^\s*(?:支持AI|剩余流量|距离下次重置|套餐到期|客服)
+    empty-fallback: REJECT
+    include-all: true
+  - name: 🇯🇵 日本 JP
+    type: select
+    filter: (?i)(?:🇯🇵|日本|Japan|(?:^|[^A-Z])JP(?:$|[^A-Z]))
+    exclude-filter: 3x`(?i)EMBY`(?i)^\s*(?:支持AI|剩余流量|距离下次重置|套餐到期|客服)
+    empty-fallback: REJECT
+    include-all: true
+  - name: 🇸🇬 新加坡 SG
+    type: select
+    filter: (?i)(?:🇸🇬|新加坡|Singapore|(?:^|[^A-Z])SG(?:$|[^A-Z]))
+    exclude-filter: 3x`(?i)EMBY`(?i)^\s*(?:支持AI|剩余流量|距离下次重置|套餐到期|客服)
+    empty-fallback: REJECT
+    include-all: true
+  - name: 🇺🇸 美国 US
+    type: select
+    filter: (?i)(?:🇺🇸|美国|美國|United[ -]?States|(?:^|[^A-Z])US(?:$|[^A-Z]))
+    exclude-filter: 3x`(?i)EMBY`(?i)^\s*(?:支持AI|剩余流量|距离下次重置|套餐到期|客服)
+    empty-fallback: REJECT
+    include-all: true
+rules:
+  - GEOIP,private,DIRECT,no-resolve
+  - GEOSITE,private,DIRECT
+  - DOMAIN,look.bigmelook.com,🎬 EMBY
+  - GEOSITE,cn,DIRECT
+  - GEOSITE,category-games-cn,DIRECT
+  - GEOIP,CN,DIRECT
+  - GEOSITE,category-ai-!cn,🤖 AI
+  - GEOSITE,youtube,📹 YouTube
+  - GEOSITE,category-games-!cn,🎮 游戏
+  - OR,((GEOSITE,category-social-media-!cn),(GEOSITE,telegram),(GEOSITE,discord),(GEOSITE,reddit),(GEOSITE,tiktok)),💬 社交
+  - GEOIP,telegram,💬 社交,no-resolve
+  - AND,((GEOSITE,category-entertainment),(NOT,((GEOSITE,category-entertainment-cn))),(NOT,((GEOSITE,netflix))),(NOT,((GEOSITE,disney)))),🍿 流媒体
+  - GEOSITE,geolocation-!cn,🚀 通用代理
+  - MATCH,🐟 漏网之鱼

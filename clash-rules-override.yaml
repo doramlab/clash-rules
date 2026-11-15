@@ -72,25 +72,37 @@ proxy-groups:
       - 🇸🇬 新加坡 SG
       - 🇺🇸 美国 US
   - name: 🇭🇰 香港 HK
-    type: select
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 30
     filter: (?i)(?:🇭🇰|香港|Hong[ -]?Kong|(?:^|[^A-Z])HK(?:$|[^A-Z]))
     exclude-filter: 3x`(?i)EMBY`(?i)^\s*(?:支持AI|剩余流量|距离下次重置|套餐到期|客服)
     empty-fallback: REJECT
     include-all: true
   - name: 🇯🇵 日本 JP
-    type: select
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 30
     filter: (?i)(?:🇯🇵|日本|Japan|(?:^|[^A-Z])JP(?:$|[^A-Z]))
     exclude-filter: 3x`(?i)EMBY`(?i)^\s*(?:支持AI|剩余流量|距离下次重置|套餐到期|客服)
     empty-fallback: REJECT
     include-all: true
   - name: 🇸🇬 新加坡 SG
-    type: select
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 30
     filter: (?i)(?:🇸🇬|新加坡|Singapore|(?:^|[^A-Z])SG(?:$|[^A-Z]))
     exclude-filter: 3x`(?i)EMBY`(?i)^\s*(?:支持AI|剩余流量|距离下次重置|套餐到期|客服)
     empty-fallback: REJECT
     include-all: true
   - name: 🇺🇸 美国 US
-    type: select
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 30
     filter: (?i)(?:🇺🇸|美国|美國|United[ -]?States|(?:^|[^A-Z])US(?:$|[^A-Z]))
     exclude-filter: 3x`(?i)EMBY`(?i)^\s*(?:支持AI|剩余流量|距离下次重置|套餐到期|客服)
     empty-fallback: REJECT

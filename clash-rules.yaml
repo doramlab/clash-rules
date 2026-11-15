@@ -15,6 +15,10 @@ proxy-providers:
     # 匹配地区代码、旗帜和全称；排除订阅说明，EMBY 仅供专用组。
     filter: '(?i)^(?!\s*(?:支持AI|剩余流量|距离下次重置|套餐到期|客服)).*(?:(?:🇭🇰|香港|Hong[ -]?Kong|(?:^|[^A-Z])HK(?:$|[^A-Z]))|(?:🇯🇵|日本|Japan|(?:^|[^A-Z])JP(?:$|[^A-Z]))|(?:🇸🇬|新加坡|Singapore|(?:^|[^A-Z])SG(?:$|[^A-Z]))|(?:🇺🇸|美国|美國|United[ -]?States|(?:^|[^A-Z])US(?:$|[^A-Z]))|EMBY)'
     exclude-filter: '3x'
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
 
 geodata-mode: true
 geo-auto-update: true
@@ -56,27 +60,39 @@ proxy-groups:
     type: select
     proxies: [🚀 通用代理, DIRECT, 🇭🇰 香港 HK, 🇯🇵 日本 JP, 🇸🇬 新加坡 SG, 🇺🇸 美国 US]
 
-  # 地区组：选择具体节点。
+  # 地区组：默认自动测速，也可选择具体节点并锁定。
   - name: 🇭🇰 香港 HK
-    type: select
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 30
     use: [airport1]
     filter: '(?i)(?:🇭🇰|香港|Hong[ -]?Kong|(?:^|[^A-Z])HK(?:$|[^A-Z]))'
     exclude-filter: '(?i)EMBY'
     empty-fallback: REJECT
   - name: 🇯🇵 日本 JP
-    type: select
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 30
     use: [airport1]
     filter: '(?i)(?:🇯🇵|日本|Japan|(?:^|[^A-Z])JP(?:$|[^A-Z]))'
     exclude-filter: '(?i)EMBY'
     empty-fallback: REJECT
   - name: 🇸🇬 新加坡 SG
-    type: select
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 30
     use: [airport1]
     filter: '(?i)(?:🇸🇬|新加坡|Singapore|(?:^|[^A-Z])SG(?:$|[^A-Z]))'
     exclude-filter: '(?i)EMBY'
     empty-fallback: REJECT
   - name: 🇺🇸 美国 US
-    type: select
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 30
     use: [airport1]
     filter: '(?i)(?:🇺🇸|美国|美國|United[ -]?States|(?:^|[^A-Z])US(?:$|[^A-Z]))'
     exclude-filter: '(?i)EMBY'
